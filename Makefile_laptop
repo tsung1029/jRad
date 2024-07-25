@@ -1,0 +1,29 @@
+F90 = ifort
+
+F90_DEBUG = ifort -vec-report3 -O3 -ip #-g
+
+#-prof-use -prof-dir/Users/joana/Desktop/COMPTON/jradspec_18june/profdata -ipo -vec-report3 -O3
+
+#-prof-gen -prof-dir/Users/joana/Desktop/COMPTON/jradspec_18june/profdata
+
+#-vec-report3 -O3 -xSSE3 #pragma vector always
+
+F90FLAGS = -I/epp/hdf5/hdf5-1.8.13-ifort/include -L/epp/hdf5/hdf5-1.8.13-ifort/lib \
+           -I/epp/openmpi/openmpi-1.8.1-ifort/include -L/epp/openmpi/openmpi-1.8.1-ifort/lib \
+           -I/epp/szip/szip-2.1-mac-intel-64/include -L/epp/szip/szip-2.1-mac-intel-64/lib \
+           -lhdf5_fortran -lhdf5 -lmpi_mpifh -lmpi -lsz -lz
+
+#EXTRA_F90FLAGS = -lm
+
+OBJS = hdf5_utilities.o type_definitions.o utilities.o track_utilities.o \
+       spec_calculations.o jrad.o
+
+all:$(OBJS)
+	$(F90_DEBUG) $(F90FLAGS) $(OBJS) -o jrad $(EXTRA_F90FLAGS)
+
+%.o:%.f90
+	$(F90_DEBUG) -c $< $(F90FLAGS) 
+
+clean:
+	rm -f $(OBJS) *.mod jrad
+

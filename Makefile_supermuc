@@ -1,0 +1,22 @@
+F90 = mpif90 -Ofast
+
+F90FLAGS = -I/opt/ibmhpc/pecurrent/ppe.poe/include \
+           -L/opt/ibmhpc/pecurrent/ppe.poe/lib/libmpi64 \
+           -I/lrz/sys/libraries/hdf5/1.8.12/ibmmpi/include \
+           -L/lrz/sys/libraries/hdf5/1.8.12/ibmmpi/lib -lhdf5hl_fortran \
+           -lhdf5_hl -lhdf5_fortran -lhdf5 -lz -lm -Wl,-rpath
+
+EXTRA_F90FLAGS =
+
+OBJS = hdf5_utilities.o type_definitions.o utilities.o track_utilities.o \
+       spec_calculations.o jrad.o
+
+all:$(OBJS)
+	$(F90) $(OBJS) $(F90FLAGS) -o jrad $(EXTRA_F90FLAGS)
+
+%.o:%.f90
+	$(F90) -c $< $(F90FLAGS) 
+
+clean:
+	rm -f $(OBJS) *.mod jrad
+

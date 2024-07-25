@@ -1,0 +1,28 @@
+F90 = mpif90
+
+F90_DEBUG = mpif90 -g -Wsurprising -Warray-bounds #-O3 #fast #
+
+# F90FLAGS = -I/epp/openmpi/1.8.3-gfortran-gcc/include -L/epp/openmpi/1.8.3-gfortran-gcc/lib \
+#           -I/epp/hdf5/1.8.14-ompi-gfortran-gcc/include -L/epp/hdf5/1.8.14-ompi-gfortran-gcc/lib \
+#           -I/epp/szip-2.1-mac-intel-64/include -L/epp/szip-2.1-mac-intel-64/lib \
+#           -lhdf5_fortran -lhdf5 -lmpi_mpifh -lmpi -lsz -lz
+
+H5_HOME = /usr/local
+
+F90FLAGS = -I$(H5_HOME)/include -I$(H5_HOME)/lib -L$(H5_HOME)/lib \
+           -lhdf5_fortran -lhdf5
+
+#EXTRA_F90FLAGS = -lm
+
+OBJS = timers.o hdf5_utilities.o time.o type_definitions.o track_utilities.o ene_calculations.o \
+       spec_calculations.o rad_calculations.o utilities.o jrad.o
+
+all:$(OBJS)
+	$(F90_DEBUG) $(F90FLAGS) $(OBJS) -o jrad $(EXTRA_F90FLAGS)
+
+%.o:%.f90
+	$(F90_DEBUG) -c $< $(F90FLAGS) 
+
+clean:
+	rm -f $(OBJS) *.mod jrad
+

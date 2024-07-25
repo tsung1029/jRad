@@ -1,0 +1,27 @@
+F90 = mpixlf95_r
+
+F90_DEBUG = mpixlf95_r
+
+F90FLAGS = -qsuppress=1506-234 -qsuffix=cpp=f90 -qarch=qp \
+           -qsmp=omp -qnosave -qnoescape \
+           -O4 -qmaxmem=-1 -qalias=nopteovrlp -qnocheck \
+           -qtune=qp -qfloat=rsqrt:hssngl:fltint \
+           -I/bgsys/local/hdf5/v1.8.9/include -L/bgsys/local/hdf5/v1.8.9/lib \
+           -I/bgsys/drivers/ppcfloor/comm/xl/include -L/bgsys/drivers/ppcfloor/comm/xl/lib \
+           -I/bgsys/local/szip/v2.1/include -L/bgsys/local/szip/v2.1/lib \
+           -L/bgsys/local/zlib/v1.2.5/lib \
+           -lhdf5_fortran -lhdf5 -lmpif -lmpi -lsz -lz -lm -Wl,-rpath -Wl,/bgsys/local/hdf5/v1.8.9/lib
+
+#EXTRA_F90FLAGS = -lm
+
+OBJS = hdf5_utilities.o type_definitions.o utilities.o track_utilities.o \
+       spec_calculations.o jrad.o
+
+all:$(OBJS)
+	$(F90_DEBUG) $(F90FLAGS) $(OBJS) -o jrad $(EXTRA_F90FLAGS)
+
+%.o:%.f90
+	$(F90_DEBUG) -c $< $(F90FLAGS) 
+
+clean:
+	rm -f $(OBJS) *.mod jrad
