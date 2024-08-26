@@ -310,13 +310,32 @@ real(kind=p_double) :: x0, y0, z0, x1detmin, x1detmax, &
 integer :: mpierr, ios, myid, numprocs
 logical :: stop_program
 
+!
+! wmin, wmax, wpoints = min,max, and # of points in omega-axis
+! waxistype = "linear"  "log10", "linbydec"
+! min_dec,num_dec, ppdec = axis for "linbydec" case
+! m_weight = are the particles weighted? (TRUE/FALSE)
+!
 namelist /waxis_parameters/ wmin, wmax, wpoints, waxistype, min_dec, &
                             num_dec, ppdec
-                     
+! trackfile = name of the trackfile                     
+! ndimtrack = number of dimensions in the simulation
+! track_select_type = "nrange", "nmin", "nmax", "x1min", "x1max", "x1range","tmin","tmax","trange","enemin", "npart"
+! 
 namelist /track_parameters/ trackfile, ndimtrack, track_select_type, &
                             nbegin, nend, nrange, x1min, x1max, x1range, &
                             tmin, tmax, trange, enemin, npart, m_weight    
 
+                    
+!
+! diag_type = "energy", "standard", "farfield", "farfieldEndPoint"
+! detector_axis = "x1","x2","x3"
+! x0,y0,z0 = location of the detector in (x,y,z)  x=x1, y=x2, z=x3
+! ncells1, ncells2 = # of cells in the detector
+! coherent = flag for coherent/incoherent spectrum calculation (DEFAULT is FALSE)
+! endpoints = logical flag to suggest whether an endpoint (x0,y0,z0) is specified
+! emissivity = logical flag to indicate whether or not the radiation is normalized by the radius R
+!
 namelist /detector_parameters/ ndim, diag_type, endpoints, &
                                detector_axis, ncells1, ncells2, x0, y0, z0, &  
                                x1detmin, x1detmax, x2detmin, x2detmax, emissivity, &
