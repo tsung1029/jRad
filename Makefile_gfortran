@@ -1,12 +1,13 @@
+CC = gcc-14
 F90 = mpif90
 
 F90_DEBUG = mpif90 -O3 -fallow-argument-mismatch #fast #-g -Wsurprising -Warray-bounds
 
 F90FLAGS = -I/usr/local/include -L/usr/local/lib \
-           -lhdf5_fortran -lhdf5 -lsz -lz \
-           -lm
+           -lhdf5_fortran -lhdf5 
+           
 
-#EXTRA_F90FLAGS = -lm
+EXTRA_F90FLAGS = -lm
 
 OBJS = hdf5_utilities.o type_definitions.o utilities.o track_utilities.o \
        spec_calculations.o ene_calculations.o time.o rad_calculations.o  jrad.o
