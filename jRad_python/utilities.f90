@@ -8,7 +8,7 @@
 
 module utilities
 
-  use hdf5_utilities
+  ! use hdf5_utilities
   use type_definitions
   
 implicit none
