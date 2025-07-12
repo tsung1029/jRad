@@ -1,9 +1,9 @@
 ! ****************************************************************************
-! Copyright © 2014 Instituto Superior Técnico. All rights reserved. This 
-! software is the copyrighted work of Instituto Superior Técnico. 
+! Copyright © 2014 Instituto Superior All rights reserved. This 
+! software is the copyrighted work of Instituto Superior 
 ! Reproduction, in whole or in part, on the Internet, on CD-ROM or any 
-! other medium, without the prior written consent of Instituto Superior 
-! Técnico is prohibited.
+! other medium, without the prior written consent of Instituto 
+! prohibited.
 ! ****************************************************************************
 
 module hdf5_utilities
