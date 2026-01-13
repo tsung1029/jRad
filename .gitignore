@@ -2,3 +2,4 @@
 *.mod
 *.o
 jrad
+.DS_Store
