@@ -3,3 +3,4 @@
 *.o
 jrad
 .DS_Store
+*.so
